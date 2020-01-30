@@ -1,0 +1,19 @@
+﻿{
+    "data": [
+        {
+            "email": "abuse@gmo.jp",
+            "relatedDomains": [
+                "gmo-access.jp",
+                "gmobb-fix.jp",
+                "plusmail.jp",
+                "zero.jpgmo-access.jp",
+                "gmobb-fix.jp",
+                "plusmail.jp",
+                "zero.jp"
+            ]
+        }
+    ],
+    "code": 0,
+    "msg": "SUCCESS",
+    "count": 1
+}

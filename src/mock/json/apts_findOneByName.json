@@ -1,0 +1,27 @@
+﻿{
+  "data": {
+    "id": 5,
+    "name": "Longhorn",
+    "synonym": "Lamberts;the Lamberts;",
+    "initiator": "美国",
+    "sponsor": "美国中央情报局(CIA)",
+    "target": "德国;比利时;巴西;印度;印度尼西亚;（中东、欧洲、亚洲和非洲的16个国家）",
+    "industry": "金融;电信;能源;航空航天;信息技术;教育;自然资源;",
+    "type": "间谍情报",
+    "date": "2011-01-01",
+    "summary": "最早于2014年由赛门铁克披露，将该APT命名为Longhorn，卡巴斯基根据该组织使用的工具集，将其命名为Lamberts。2017年赛门铁克和卡巴斯基相继结合维基解密Vault7披露的资料，将该组织的源头指向美国CIA。该组织的活动至少始于2011年。攻击目标至少包括中东、欧洲、亚洲和非洲的16个国家的40个目标，领域涉及金融、电信、能源、航空航天、信息技术、教育和自然资源。",
+    "source": "517236d5d68bcd8936204171ef4e89626b60e995;28319b207c5a3ad87bf682901111a42ad6fd6d1e;ec5876675005981156372716c04989ee119ec49e;60b0123ca7ea859497a4d577161986d50886012c",
+    "initiatorFlag": "/views/Flags/United-States-of-America.png",
+    "sponsorFlag": "",
+    "targetFlag": "/views/Flags/Germany.png;/views/Flags/Belgium.png;/views/Flags/Brazil.png;/views/Flags/India.png",
+    "initiatorEnName": "United States",
+    "sponsorEnName": "",
+    "targetEnName": "Germany;India;Indonesia;Brazil;Belgium",
+    "page": 1,
+    "limit": 10,
+    "toolList": "",
+    "nlplist": "",
+    "cvelist": ""
+  },
+  "code": 0
+}

@@ -1,0 +1,115 @@
+﻿{
+    "data": [
+        {
+            "id": 12,
+            "filePath": "C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\DeviceAssociationService\\",
+            "source": "cc77d1604a80c26bfb1846a84a27dea99278242b",
+            "rawData": "{}",
+            "page": 1,
+            "limit": 10,
+            "apt": "APT32"
+        },
+        {
+            "id": 11,
+            "filePath": "//tmp//store",
+            "source": "aebf5ecf0af16f1c56d2fbaccd8a6343b4212edd",
+            "rawData": "{}",
+            "page": 1,
+            "limit": 10,
+            "apt": "APT32"
+        },
+        {
+            "id": 10,
+            "filePath": "//Library//Storage//File System//HFS/25cf5d02-e50b-4288-870a-528d56c3cf6e//pivtoken.appex",
+            "source": "aebf5ecf0af16f1c56d2fbaccd8a6343b4212edd",
+            "rawData": "{}",
+            "page": 1,
+            "limit": 10,
+            "apt": "APT32"
+        },
+        {
+            "id": 9,
+            "filePath": "~//Library//SmartCardsServices//Technology/PlugIns//drivers//snippets.ecgML",
+            "source": "aebf5ecf0af16f1c56d2fbaccd8a6343b4212edd",
+            "rawData": "{}",
+            "page": 1,
+            "limit": 10,
+            "apt": "APT32"
+        },
+        {
+            "id": 8,
+            "filePath": "C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\DeviceAssociationService\\",
+            "source": "cc77d1604a80c26bfb1846a84a27dea99278242b",
+            "rawData": "{}",
+            "page": 1,
+            "limit": 10,
+            "apt": "APT32"
+        },
+        {
+            "id": 7,
+            "filePath": "//tmp//store",
+            "source": "aebf5ecf0af16f1c56d2fbaccd8a6343b4212edd",
+            "rawData": "{}",
+            "page": 1,
+            "limit": 10,
+            "apt": "APT32"
+        },
+        {
+            "id": 6,
+            "filePath": "//Library//Storage//File System//HFS/25cf5d02-e50b-4288-870a-528d56c3cf6e//pivtoken.appex",
+            "source": "aebf5ecf0af16f1c56d2fbaccd8a6343b4212edd",
+            "rawData": "{}",
+            "page": 1,
+            "limit": 10,
+            "apt": "APT32"
+        },
+        {
+            "id": 5,
+            "filePath": "~//Library//SmartCardsServices//Technology/PlugIns//drivers//snippets.ecgML",
+            "source": "aebf5ecf0af16f1c56d2fbaccd8a6343b4212edd",
+            "rawData": "{}",
+            "page": 1,
+            "limit": 10,
+            "apt": "APT32"
+        },
+        {
+            "id": 4,
+            "filePath": "C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\DeviceAssociationService\\",
+            "source": "cc77d1604a80c26bfb1846a84a27dea99278242b",
+            "rawData": "{}",
+            "page": 1,
+            "limit": 10,
+            "apt": "APT32"
+        },
+        {
+            "id": 3,
+            "filePath": "//tmp//store",
+            "source": "aebf5ecf0af16f1c56d2fbaccd8a6343b4212edd",
+            "rawData": "{}",
+            "page": 1,
+            "limit": 10,
+            "apt": "APT32"
+        },
+        {
+            "id": 2,
+            "filePath": "//Library//Storage//File System//HFS/25cf5d02-e50b-4288-870a-528d56c3cf6e//pivtoken.appex",
+            "source": "aebf5ecf0af16f1c56d2fbaccd8a6343b4212edd",
+            "rawData": "{}",
+            "page": 1,
+            "limit": 10,
+            "apt": "APT32"
+        },
+        {
+            "id": 1,
+            "filePath": "~//Library//SmartCardsServices//Technology/PlugIns//drivers//snippets.ecgML",
+            "source": "aebf5ecf0af16f1c56d2fbaccd8a6343b4212edd",
+            "rawData": "{}",
+            "page": 1,
+            "limit": 10,
+            "apt": "APT32"
+        }
+    ],
+    "code": 0,
+    "msg": "SUCCESS",
+    "count": 94
+}

@@ -1,0 +1,132 @@
+﻿{
+    "data": {
+        "ipList": [
+	{
+                "id": 0,
+                "domain": "",
+                "timestamp": "",
+                "lastResolvedIpAddress": "89.163.60.24",
+                "lastResolvedTime": "2019-08-25",
+                "startDate": "",
+                "endDate": "",
+                "rsStartDate": "",
+                "rsEndDate": "",
+                "orderBy": "last_resolved_time DESC",
+                "page": 1,
+                "limit": 10
+            },
+            {
+                "id": 0,
+                "domain": "",
+                "timestamp": "",
+                "lastResolvedIpAddress": "89.163.11.218",
+                "lastResolvedTime": "2019-06-12",
+                "startDate": "",
+                "endDate": "",
+                "rsStartDate": "",
+                "rsEndDate": "",
+                "orderBy": "last_resolved_time DESC",
+                "page": 1,
+                "limit": 10
+            },
+            {
+                "id": 0,
+                "domain": "",
+                "timestamp": "",
+                "lastResolvedIpAddress": "89.163.73.161",
+                "lastResolvedTime": "2019-06-12",
+                "startDate": "",
+                "endDate": "",
+                "rsStartDate": "",
+                "rsEndDate": "",
+                "orderBy": "last_resolved_time DESC",
+                "page": 1,
+                "limit": 10
+            },
+            {
+                "id": 0,
+                "domain": "",
+                "timestamp": "",
+                "lastResolvedIpAddress": "89.163.49.128",
+                "lastResolvedTime": "2019-06-12",
+                "startDate": "",
+                "endDate": "",
+                "rsStartDate": "",
+                "rsEndDate": "",
+                "orderBy": "last_resolved_time DESC",
+                "page": 1,
+                "limit": 10
+            }
+         ],
+        "subDomainList": [
+            {
+                "id": 0,
+                "domain": "",
+                "timestamp": "",
+                "subdomains": "ns1.beaudrysang.xyz",
+                "from": "",
+                "startDate": "",
+                "endDate": "",
+                "orderBy": "id DESC",
+                "page": 1,
+                "limit": 10
+            },
+            {
+                "id": 0,
+                "domain": "",
+                "timestamp": "",
+                "subdomains": "beaudrysang.xyz",
+                "from": "",
+                "startDate": "",
+                "endDate": "",
+                "orderBy": "id DESC",
+                "page": 1,
+                "limit": 10
+            }
+        ],
+        "infoList": [
+            {
+                "id": 0,
+                "domain": "",
+                "timestamp": "",
+                "cloudflare": "",
+                "dnsDomainIp": {
+                    "10 eforward1.registrar-servers.com.": "162.255.118.51",
+                    "10 eforward2.registrar-servers.com.": "162.255.118.52",
+                    "10 eforward3.registrar-servers.com.": "162.255.118.51",
+                    "15 eforward4.registrar-servers.com.": "162.255.118.61",
+                    "20 eforward5.registrar-servers.com.": "162.255.118.62"
+                },
+                "mxDomainIp": {
+                    "10 eforward1.registrar-servers.com.": "162.255.118.51",
+                    "10 eforward2.registrar-servers.com.": "162.255.118.52",
+                    "10 eforward3.registrar-servers.com.": "162.255.118.51",
+                    "15 eforward4.registrar-servers.com.": "162.255.118.61",
+                    "20 eforward5.registrar-servers.com.": "162.255.118.62"
+                },
+                "startDate": "",
+                "endDate": "",
+                "orderBy": "id DESC",
+                "page": 1,
+                "limit": 10
+            }
+        ],
+        "whoisList": [
+            {
+                "id": 0,
+                "domains": "",
+                "timestamp": "",
+                "emailList": "",
+                "whoisDict": [],
+                "startDate": "",
+                "endDate": "",
+                "orderBy": "id DESC",
+                "page": 1,
+                "limit": 10
+            }
+        ]
+    },
+    "code": 0,
+    "msg": "SUCCESS",
+    "count": 1
+}

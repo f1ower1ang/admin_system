@@ -1,0 +1,86 @@
+@import "../../assets/stylus/variable.styl"
+.home
+  margin-left -20px
+  margin-right -20px
+
+  .selector
+    line-height 60px
+    padding 0 20px
+
+    .el-radio-group
+      display flex
+      align-items center
+      flex-wrap wrap
+
+      .choose-group
+        display flex
+        align-items center
+        margin-right 10px
+        margin-bottom 5px
+
+        .flag
+          width 30px
+          height 26px
+          display flex
+          align-items center
+          border 1px solid #eee
+          border-right none
+
+          .el-image
+            height 20px
+            width 20px
+            border-radius 50%
+            margin 0 auto
+            color #606266
+            font-size $font-size-large
+            text-align center
+            line-height 20px
+
+  .el-card
+    margin-bottom 20px
+
+    .top
+      p
+        font-size $font-size-large
+        font-weight bold
+        line-height 25px
+        height 55px
+        overflow hidden
+
+    .right
+      width 60px
+      height 60px
+      background no-repeat
+      background-size cover
+      background-position center
+
+    .content
+      font-size $font-size-medium
+      height 140px
+      overflow hidden
+      position relative
+
+      &:after
+        position absolute
+        left 0
+        right 0
+        content ''
+        bottom 0
+        height 10px
+        background linear-gradient(rgba(255, 255, 255, .5), #fff);
+
+    .bottom
+      p
+        padding-top 10px
+        float right
+        font-size $font-size-medium
+        cursor pointer
+        transition all .2s
+
+        &:hover
+          color $color-theme
+
+      &:after
+        content ''
+        clear both
+        display block

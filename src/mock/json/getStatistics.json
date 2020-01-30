@@ -1,0 +1,20 @@
+﻿{
+    "data": {
+        "aptCount": 8,
+        "techCount": 247,
+        "sourceCount": 17,
+        "reportCount": 51,
+        "ipCount": 270,
+        "domainCount": 453,
+        "cveCount": 52,
+        "emailCount": 0,
+        "urlCount": 29,
+        "sampleCount": 461,
+        "registryCount": 158,
+        "fileNameCount": 847,
+        "filePathCount": 847
+    },
+    "code": 0,
+    "msg": "SUCCESS",
+    "count": 1
+}

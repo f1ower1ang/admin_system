@@ -1,0 +1,35 @@
+﻿{
+    "data": [
+        {
+            "initiator": "俄罗斯",
+            "initiatorFlag": "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3873682173,351384681&fm=26&gp=0.jpg"
+        },
+        {
+            "initiator": "美国",
+            "initiatorFlag": "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3873682173,351384681&fm=26&gp=0.jpg"
+        },
+        {
+            "initiator": "英国",
+            "initiatorFlag": "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3873682173,351384681&fm=26&gp=0.jpg"
+        },
+        {
+            "initiator": "澳大利亚",
+            "initiatorFlag": "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3873682173,351384681&fm=26&gp=0.jpg"
+        },
+        {
+            "initiator": "新西兰",
+            "initiatorFlag": "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3873682173,351384681&fm=26&gp=0.jpg"
+        },
+        {
+            "initiator": "加拿大",
+            "initiatorFlag": "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3873682173,351384681&fm=26&gp=0.jpg"
+        },
+        {
+            "initiator": "越南",
+            "initiatorFlag": "/it/u=3873682173,351384681&fm=26&gp=0.jpg"
+        }
+    ],
+    "code": 0,
+    "msg": "SUCCESS",
+    "count": 7
+}
