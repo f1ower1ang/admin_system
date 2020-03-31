@@ -1,7 +1,7 @@
 <template>
 <div class="report">
   <div class="list" v-infinite-scroll="load">
-    <result-card v-for="(item, index) in result" :item="item" :key="index" @select="goTo" locate="false"></result-card>
+    <result-card v-for="(item, index) in result" border :item="item" :key="index" />
   </div>
 </div>
 </template>
@@ -25,6 +25,13 @@ export default {
       limit: 6,
       page: 1,
       total: 0
+    }
+  },
+  created () {
+    if (this.keywords.length > 0) {
+      this.page = 1
+      this.result = []
+      this.getReport()
     }
   },
   watch: {
@@ -53,10 +60,18 @@ export default {
         this.total = res.count
         this.result = this.result.concat(res.data.map((item) => {
           return {
-            title: `<h1>${item.description}</h1>${item.title}`,
-            imgUrl: item.imgUrl,
-            description: item.statement,
-            url: item.fileUrl
+            fileName: item.title,
+            statement: item.statement,
+            title: item.description,
+            imgUrl: item.logo,
+            url: item.fileUrl,
+            date: item.date,
+            item: {
+              flag: item.countryFlag,
+              name: item.country
+            },
+            apt: item.apt,
+            hash: item.hashId
           }
         }))
       })
@@ -77,6 +92,7 @@ export default {
     .list
       position absolute
       top 20px
+      padding-right 20px
       bottom 0
       width 100%
       overflow-y auto

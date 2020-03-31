@@ -1,7 +1,8 @@
 export default {
   home: {
     aptList: '/apts/findAll',
-    category: '/apts/getAptsInitiators'
+    category: '/apts/getAptsInitiators',
+    country: '/apts/getCountrys'
   },
   detail: {
     overview: '/apts/findOneByName',
@@ -18,14 +19,28 @@ export default {
       email: '/emails/getInfosFromEmail',
       ip: '/ips/getInfosFromIp',
       sample: '/samples/getInfosFromSample',
-      url: '/urls/getInfosFromUrl'
-    }
+      url: '/urls/getInfosFromUrl',
+      hash: '/trees/getTreesBySource'
+    },
+    inspect: '/report/findOneByHash'
   },
   search: {
     report: '/report/search',
     ioc: '/ioc/search',
+    iocClue: '/ioc/searchClue',
+    iocRecord: '/iocSearchRecord/findAll',
+    searchRecordEdit: '/iocSearchRecord/editOne',
+    searchRecordDelete: '/iocSearchRecord/delOneByEntity',
+    iocExpand: '/iocExpandRecord/findAll',
+    iocExpandDelete: '/iocExpandRecord/delOneByEntity',
+    searchID: '/iocSearchRecord/findOneByEntity',
     ttp: '/apts/search',
-    ttpSelector: '/techniques/getTechTable'
+    ttpSelector: '/techniques/getTechTable',
+    iocRelationTag: '/iocRelationTag/addOne',
+    TagId: '/iocRelationTag/findOneByEntity',
+    EditTag: '/iocRelationTag/editOne',
+    DeleteTag: '/iocRelationTag/delOneByEntity',
+    Back: '/xxx'
   },
   user: {
     login: '/user/login',
@@ -49,5 +64,10 @@ export default {
   },
   reportList: {
     default: '/report/findAll'
+  },
+  threadInfo: {
+    rank: '/report/countRankBySource',
+    counts: '/report/countRankByCountry',
+    apt: '/report/countRankByAPT'
   }
 }

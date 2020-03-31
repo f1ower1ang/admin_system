@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Button, Container, Header, Aside, Main, Menu, Submenu, MenuItem, MenuItemGroup, Avatar, Card, Row, Col, Pagination, Loading, Tabs, TabPane, Input, Timeline, TimelineItem, Steps, Step, Table, TableColumn, Radio, Checkbox, CheckboxGroup, Image, InfiniteScroll, Popover, Tooltip, Tag, RadioGroup, RadioButton, Select, Option } from 'element-ui'
+import { Button, Container, Header, Aside, Main, Menu, Submenu, MenuItem, MenuItemGroup, Avatar, Card, Row, Col, Pagination, Loading, Tabs, TabPane, Input, Timeline, TimelineItem, Steps, Step, Table, TableColumn, Radio, Checkbox, CheckboxGroup, Image, InfiniteScroll, Popover, Tooltip, Tag, RadioGroup, RadioButton, Select, Option, Dropdown, DropdownItem, DropdownMenu, DatePicker, Slider, Form, FormItem } from 'element-ui'
 
 Vue.use(Button)
 Vue.use(Container)
@@ -37,3 +37,10 @@ Vue.use(RadioGroup)
 Vue.use(RadioButton)
 Vue.use(Option)
 Vue.use(Select)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+Vue.use(Dropdown)
+Vue.use(DatePicker)
+Vue.use(Slider)
+Vue.use(Form)
+Vue.use(FormItem)

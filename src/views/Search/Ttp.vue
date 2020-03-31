@@ -1,42 +1,67 @@
 <template>
   <div class="ttp-report">
-    <div class="search-box">
-      <el-input v-model="input" :placeholder="placeholder"/>
-      <el-button @click="search">搜索</el-button>
+    <p>TTP关联</p>
+    <div class="search-type">
+      <span :class="{active: radio === 1}" @click="changeLabel(1)">TTP详情关联</span>
+      <span :class="{active: radio === 2}" @click="changeLabel(2)">TTP矩阵关联</span>
     </div>
-    <p class="keywords">
-      <span v-for="(key, index) in hots" :key="index" @click="search(key)">{{ key }}</span>
-    </p>
-    <div class="result">
-      <result :keywords="keywords"/>
+    <div class="search-wrapper">
+      <search-box :placeholder="placeholder" @search="search" @change="change" />
     </div>
+    <ttp-selector @search="searchByCon" ref="selector" />
   </div>
 </template>
 
 <script>
-import result from '../../components/Search/ttp'
+import SearchBox from '../../components/common/search-box'
+import TtpSelector from '../../components/Search/TtpSelector'
 
 export default {
   name: 'Ttp',
-  components: { result },
+  components: { SearchBox, TtpSelector },
   data () {
     return {
       placeholder: '请输入APT名称、别名或过程',
-      input: '',
-      hots: [
-        'tonholding.com',
-        '95.211.172.143',
-        'f1799d11b34685aa209171b0a4b89d06'
-      ],
-      keywords: ''
+      keywords: '',
+      radio: 1,
+      techniques: []
     }
   },
   methods: {
-    search (k) {
-      if (k.length > 0) {
-        this.input = k
+    search (keywords) {
+      if (keywords.length > 0) {
+        this.keywords = keywords
+        this.$router.push({
+          name: 'ttp-result',
+          params: {
+            keywords,
+            techniques: this.radio === 1 ? [] : this.techniques
+          }
+        })
       }
-      this.keywords = this.input
+    },
+    change(keywords) {
+      this.keywords = keywords
+    },
+    searchByCon(result) {
+      this.techniques = []
+      this.$refs.selector.hidden()
+      Object.keys(result).forEach((k) => {
+        this.techniques = this.techniques.concat(result[k])
+      })
+      this.$router.push({
+        name: 'ttp-result',
+        params: {
+          keywords: this.keywords,
+          techniques: this.techniques
+        }
+      })
+    },
+    changeLabel(radio) {
+      this.radio = radio
+      if (radio === 2) {
+        this.$refs.selector.show()
+      }
     }
   }
 }
@@ -45,24 +70,30 @@ export default {
 <style scoped lang="stylus">
   @import "../../assets/stylus/variable.styl"
   .ttp-report
-    width 70%
-    margin 0 auto
+    width 100%
     height 100%
-    display flex
-    flex-direction column
-    .search-box
-      display flex
-      .el-input
-        flex 1
-      .el-button
-        margin-left 10px
-    .keywords
+    overflow hidden
+    p
+      margin-top 200px
+      text-align center
+      color $color-theme
+      font-size $font-size-large-x
+    .search-type
       line-height 30px
-      font-size $font-size-small
-      color $color-text-d
+      height 30px
+      width 70%
+      margin 20px auto 0
       span
-        margin-right 10px
         cursor pointer
-    .result
-      flex 1
+        display inline-block
+        padding 0 10px
+        height 100%
+        font-size $font-size-medium
+        color $color-text-l
+      .active
+        color #fff
+        background $color-theme
+    .search-wrapper
+      width 70%
+      margin 0 auto
 </style>

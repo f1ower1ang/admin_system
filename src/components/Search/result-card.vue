@@ -1,28 +1,40 @@
 <template>
-<el-card class="card" shadow="hover" @click.native="select(item)">
-  <div class="top">
-    <p class="title" v-html="item.title">
-    </p>
-    <el-image v-for="(logo, index) in item.logo" :src="logo" :key="index" style="width: 50px;height: 29px">
-      <div slot="error">
-        <i class="el-icon-picture-outline"></i>
+  <div class="card" @click="select(item)" :class="{border}">
+    <div class="left">
+      <el-image :src="item.imgUrl" style="height: 100%; width: 100%">
+      </el-image>
+    </div>
+    <div class="right">
+      <div class="top">
+        <div class="text">
+          <h2 class="title" v-html="item.title"/>
+          <span class="tag apt" v-if="item.apt">{{ item.apt }}</span>
+          <flag class="tag" :item="item.item" v-if="item.item"/>
+        </div>
+        <div class="btn" v-if="item.hash">
+          <el-button type="text" @click.native.stop="goTo(item, '/threatIntelligence/ttp?hash=')">查看TTP</el-button>
+          <el-button type="text" @click.native.stop="goTo(item, '/threatIntelligence/ioc?hash=')">查看IOC资源</el-button>
+        </div>
       </div>
-    </el-image>
-  </div>
-  <div class="content">
-    <el-image :src="item.imgUrl" style="height: 100px; width: 180px" alt="">
-    </el-image>
-    <div class="state">
-      <div class="description" v-html="item.description"></div>
-      <p class="date">{{ item.date }}</p>
+      <div class="middle">
+        <p v-if="item.fileName" v-html="item.fileName" class="filename" />
+        <p v-if="item.statement" v-html="item.statement" class="statement" />
+      </div>
+      <div class="bottom">
+        <p class="date" v-if="item.date">
+          发布日期：{{ item.date }}
+        </p>
+      </div>
     </div>
   </div>
-</el-card>
 </template>
 
 <script>
+import flag from '../common/flag'
+
 export default {
   name: 'result-card',
+  components: { flag },
   props: {
     item: {
       type: Object,
@@ -31,57 +43,109 @@ export default {
     locate: {
       type: String,
       default: 'true'
+    },
+    border: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
-    select(item) {
+    select (item) {
       this.$emit('select', item)
-      if (this.locate === 'true') {
-        this.$router.push(`/detail?name=${item.name}`)
+      if (item.url) {
+        open(item.url)
+      } else {
+        this.$router.push(`/detail?name=${item.apt}`)
       }
+    },
+    goTo(item, path) {
+      let routerHref = this.$router.resolve({
+        path: path + item.hash
+      })
+      open(routerHref.href)
     }
   }
 }
 </script>
 
 <style scoped lang="stylus">
-  @import "../../assets/stylus/variable.styl"
-.card
-  margin 20px 0
-  .top
+  @import "../../assets/stylus/mixin.styl"
+  .card
     display flex
     align-items center
-    .title
-      font-size $font-size-large
-      line-height 30px
-      padding-right 20px
-  .content
-    margin-top 10px
-    height 100px
-    display flex
-    .state
-      flex 1
-      padding-left 20px
+    width 100%
+    height 156px
+    overflow hidden
+    cursor pointer
+    padding 10px 0
+    &.border
+      border-top 1px solid #E6E6E6
+
+    .left
+      width 206px
+      height 136px
+      flex-shrink 0
+
+    .right
       display flex
       flex-direction column
-      .description
-        flex 1
-        line-height 20px
-        font-size $font-size-medium
-        height 100%
+      flex 1
+      padding-left 20px
+      height 100%
+      overflow hidden
+      justify-content space-between
+
+      .top
+        width 100%
         overflow hidden
-        position relative
-        &:after
-          content ''
-          position absolute
-          left 0
-          width 100%
-          bottom 0
-          height 5px
-          background linear-gradient(rgba(255, 255, 255, .5), #fff);
-      .date
-        line-height 20px
-        font-size $font-size-small
-        text-align right
-        color $color-text-d
+        display flex
+        align-items center
+
+        .text
+          flex 1
+          display flex
+          padding-right 10px
+          overflow hidden
+
+          .title
+            font-size $font-size-large
+            no-wrap()
+          .tag
+            margin-left 10px
+            background $color-theme-d
+            border none
+            width 90px
+            color $color-theme
+            font-size $font-size-medium
+            &:hover
+              cursor default
+              border none
+          .apt
+            text-align center
+            line-height 26px
+            width 90px
+
+        .btn
+          flex-shrink 0
+          width 150px
+
+      .middle
+        .filename
+          font-size $font-size-medium
+          color $color-text-l
+          no-wrap()
+          line-height 20px
+          height 20px
+        .statement
+          line-height: 20px;
+          height 40px
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+
+      .bottom
+        .date
+          color $color-text-l
+          font-size $font-size-medium
 </style>

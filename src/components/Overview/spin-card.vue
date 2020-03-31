@@ -1,19 +1,13 @@
 <template>
   <div class="spin-card" @mouseenter="clearRotation" @mouseleave="rotation">
-    <el-row :gutter="10">
-      <el-col :span="12" v-for="(item, index) in currentCards.slice(0, 6)" :key="index">
-        <p :class="{rotate: rotate}">
-          {{ item.name }} : {{ item.value }}
-        </p>
-      </el-col>
-      <el-col :span="12">
-        <transition name="rotate">
-          <p :class="{rotate: rotate}" v-show="currentCards.length === 7">
-            <template v-if="currentCards.length === 7">
-              {{ currentCards[6].name }} : {{ currentCards[6].value }}
-            </template>
-          </p>
-        </transition>
+    <el-row :gutter="4">
+      <el-col :span="8" v-for="(item, index) in cards" :key="index">
+        <div :class="{rotate: rotate}" class="wrapper">
+          <div>
+            <p class="title">{{ item.name }}</p>
+            <p class="value" :class="getClass(item.value)">{{ item.value }}</p>
+          </div>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -27,24 +21,23 @@ export default {
   created () {
     getStatistics().then((res) => {
       let names = [
-        'APT', '技术点', '报告来源', '报告', 'IP', '域名', '漏洞', '邮箱', 'URL', '样本', '注册表', '文件名', '路径'
+        'APT', '报告来源', '报告', 'IP', '域名', '漏洞', '邮箱', 'URL', '样本', '注册表', '文件名', '路径'
       ]
       let idx = 0
       for (let k in res.data) {
+        if (k === 'techCount') continue
         this.cards.push({
           name: names[idx],
           value: res.data[k]
         })
         idx++
       }
-      this.currentCards = this.cards.slice(0, 6)
       this.rotation()
     })
   },
   data() {
     return {
       cards: [],
-      currentCards: [],
       rotate: false,
       index: 6
     }
@@ -63,6 +56,15 @@ export default {
         this.rotate = false
       }, 800)
     },
+    getClass(value) {
+      if (value === 0) {
+        return 'white'
+      } else if (value < 1000) {
+        return 'origin'
+      } else {
+        return 'red'
+      }
+    },
     rotation() {
       this.timer = setInterval(this.showMarquee, 5000)
     },
@@ -80,25 +82,46 @@ export default {
   @import "../../assets/stylus/mixin.styl"
   .spin-card
     width 100%
-    height 100%
+    height calc(100% - 34px)
     border-radius 4px
     padding 0 10px
     overflow hidden
-    .el-col
-      text-align center
-      margin 10px 0
-      line-height 40px
-      p
-        padding 0 5px
-        no-wrap()
-        border-radius 8px
-        font-size $font-size-medium
-        color #fff
-        background #169bd5
-        transition all .4s
-        transform scaleX(1)
-        &.rotate
-          transform scaleX(0)
+    .el-row
+      padding 10px 0
+      width 100%
+      height 100%
+      .el-col
+        box-sizing border-box
+        text-align center
+        padding 2px 0
+        height 25%
+        .wrapper
+          height 100%
+          border 1px solid rgba(46,46,86,1)
+          padding 0 5px
+          no-wrap()
+          font-size $font-size-medium
+          color #fff
+          transition all .4s
+          transform scaleX(1)
+          position relative
+          display flex
+          align-items center
+          justify-content center
+          div
+            .title
+              font-size $font-size-small
+              color #eee
+            .value
+              font-size $font-size-large
+          &.rotate
+            transform scaleX(0)
+          .white
+            color #eee
+          .origin
+            color #DC5F37
+          .red
+            color #F42A2A
 
   .rotate-enter-active
     animation bounce-in .4s

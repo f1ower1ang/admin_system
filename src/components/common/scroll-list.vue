@@ -3,7 +3,7 @@
     <div class="marquee">
       <div class="marquee_box" ref="box" @mouseenter="clearScroll(-1)" @mouseleave="scroll" :class="{border: !border}">
         <div :class="type">
-          <div class="marquee_list" :class="[type === 'apt-name' && index !== 0 ? 'col-5': 'col-1']" v-for="(li, index) in dataList" :key="index">
+          <div class="marquee_list" :class="getClass(index)" v-for="(li, index) in dataList" :key="index">
             <ul ref="list">
               <li v-for="(item, idx) in li" :key="idx" @click="select(item)">
                 <p>
@@ -63,6 +63,13 @@ export default {
     }
   },
   methods: {
+    getClass(index) {
+      if (this.type === 'apt-name') {
+        return `col-${index}`
+      } else {
+        return 'col-1'
+      }
+    },
     showMarquee(index) {
       addClass(this.$refs.list[index], 'marquee_top')
       setTimeout(() => {
@@ -73,7 +80,7 @@ export default {
     },
     scroll () {
       setTimeout(() => {
-        if (!this.$refs.list) {
+        if (!this.$refs.list || !this.$refs.list.length) {
           return
         }
 
@@ -81,7 +88,7 @@ export default {
 
         const offsetHeight = this.$refs.box.offsetHeight
         for (let i = 0; i < this.$refs.list.length; i++) {
-          if (this.dataList[i] && this.dataList[i].length * 30 > offsetHeight) {
+          if (this.dataList[i] && this.dataList[i].length * 30 + 5 * this.dataList[i].length + 10 > offsetHeight) {
             this.timer[i] = setInterval(() => {
               this.showMarquee(i)
             }, 2000)
@@ -117,21 +124,20 @@ export default {
   .vueBox
     width 100%
     height 100%
+    color #eee
 
     .marquee
       width: 100%;
       height: 100%
-      color: #3A3A3A;
       box-sizing: border-box;
 
       .marquee_box
         padding 0 10px
+        box-sizing border-box
         position: relative;
         width: 100%
         height: 100%
         overflow: hidden;
-        border-left 1px solid #fff
-        border-right 1px solid #fff
 
         .marquee_list
           height: 100%;
@@ -159,44 +165,43 @@ export default {
     display flex
     no-wrap()
 
-    .col-1
-      flex 1
+    .col-0
+      width 60px
       margin-right 10px
-      text-align center
-      font-size $font-size-medium
+      font-size $font-size-small
       no-wrap()
+      cursor pointer
 
       li
-        border-radius 5px
-        background #169bd5
-        color #fff
+        background $color-theme
+        text-align center
+    .col-1
+      flex 1
+      font-size $font-size-small
+      no-wrap()
 
-    .col-5
-      flex 5
+    .col-2
+      width 82px
       font-size $font-size-small
       no-wrap()
 
       li
         padding 0 5px
-        border-radius 5px
-        border 1px solid #fff
-        color #169bd5
 
   .apt-detail
     display flex
     overflow hidden
     width 100%
     height 100%
-    padding 10px 0
-    .marquee_list
-      border 1px solid #fff
 
     .col-1
+      padding 10px 0
       no-wrap()
       margin-right 10px
       flex 1
-      text-align center
       font-size $font-size-medium-x
+      border-right: 1px solid rgba(46,46,86,1);
       &:last-child
         margin-right 0
+        border-right: none;
 </style>

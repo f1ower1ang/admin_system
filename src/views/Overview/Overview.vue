@@ -1,47 +1,42 @@
 <template>
   <div class="overview">
-    <el-row class="top" :gutter="10" style="padding-bottom: 10px">
-      <el-col :span="8">
-        <div class="background">
-          <p class="_title">推荐</p>
-          <div style="width: 100%; height: calc(100% - 36px)">
+    <el-row style="height: 100%; width: 100%">
+      <el-col :span="6" class="left">
+        <el-row class="background">
+          <p class="_title">敌情速览</p>
+          <div style="width: 100%; height: calc(100% - 36px); padding: 10px 0 20px 0; overflow: hidden">
             <scroll-list :list="apts" type="apt-name" @select="goTo"></scroll-list>
           </div>
-        </div>
-      </el-col>
-      <el-col :span="6" @mouseenter.native="clearPlay" @mouseleave.native="autoPlay">
-        <div class="background">
-          <p class="_title">推荐</p>
-          <div class="border">
-            <process :process-data="processData" :pure="pure"></process>
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="10" style="position: relative" @mouseenter.native="clearPlay" @mouseleave.native="autoPlay">
-        <div class="background">
-          <p class="_title">推荐</p>
-          <div class="border" ref="map">
-            <word-map :country="currentCountry" :pure="pure"></word-map>
-            <div class="tooltip" v-if="currentCountry" ref="tooltip">
-              <p>{{ currentCountry.name }}</p>
-              <img :src="`${origin}${currentCountry.flag}`" alt="">
-            </div>
-          </div>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row class="bottom" :gutter="10" style="padding-bottom: 10px">
-      <el-col :span="8">
-        <div class="background">
-          <p class="_title">标题</p>
+        </el-row>
+        <el-row class="background">
+          <p class="_title">数据速览</p>
           <spin-card></spin-card>
-        </div>
+        </el-row>
       </el-col>
-      <el-col :span="16" @mouseenter.native="clearPlay" @mouseleave.native="autoPlay">
-        <div class="background">
-          <p class="_title">标题</p>
+      <el-col :span="18" class="right">
+        <el-row class="background top">
+          <p class="_title">重点敌情监控</p>
+          <el-col :span="14" class="background" style="border-right: 1px solid rgba(46,46,86,1)">
+            <div class="border" ref="map" @mouseenter="clearPlay" @mouseleave="autoPlay">
+              <p class="describe">地缘关系</p>
+              <word-map :country="currentCountry" :pure="pure"></word-map>
+              <div class="tooltip" v-if="currentCountry" ref="tooltip">
+                <p>{{ currentCountry.name }}</p>
+                <img :src="currentCountry.flag" alt="">
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="10" class="background">
+            <div class="border">
+              <p class="describe">动态行为特征</p>
+              <process :process-data="processData" :pure="pure"></process>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row class="background bottom">
+          <p class="_title">静态资源特征</p>
           <div class="title">
-            <el-select v-model="value1" placeholder="请选择" style="margin-left: 10px">
+            <el-select v-model="value1" placeholder="请选择" class="custom-select">
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -51,7 +46,7 @@
               >
               </el-option>
             </el-select>
-            <el-select v-model="value2" placeholder="请选择">
+            <el-select v-model="value2" placeholder="请选择" class="custom-select">
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -61,7 +56,7 @@
               >
               </el-option>
             </el-select>
-            <el-select v-model="value3" placeholder="请选择">
+            <el-select v-model="value3" placeholder="请选择" class="custom-select">
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -71,7 +66,7 @@
               >
               </el-option>
             </el-select>
-            <el-select v-model="value4" placeholder="请选择" style="margin-right: 0">
+            <el-select v-model="value4" placeholder="请选择" class="custom-select" style="margin-right: 0">
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -85,7 +80,7 @@
           <div class="list">
             <scroll-list :list="aptDetail" type="apt-detail" border></scroll-list>
           </div>
-        </div>
+        </el-row>
       </el-col>
     </el-row>
   </div>
@@ -95,8 +90,8 @@
 import ScrollList from '../../components/common/scroll-list'
 import SpinCard from '../../components/Overview/spin-card'
 import { getApts, getMaps, getProcess, getListData } from '../../api/overview'
-import WordMap from '../../components/Map/map/WordMap'
-import process from '../../components/Map/Ttp/process'
+import WordMap from '../../components/Detail/map/WordMap'
+import process from '../../components/Detail/Ttp/process'
 
 export default {
   name: 'Overview',
@@ -110,7 +105,6 @@ export default {
       pure: true,
       processData: [],
       currentIndex: 0,
-      origin: window.location.origin,
       apts: '',
       options: [
         {
@@ -164,9 +158,10 @@ export default {
   },
   async created () {
     const { data: data1 } = await getApts(1, 100)
-    const { data: data2 } = await getMaps(1, 100)
+    const { data: data2 } = await getMaps(1, 100, true)
     const aptName = []
     const shortName = []
+    const date = []
     const apts = []
     data1.forEach((item) => {
       aptName.push({
@@ -175,6 +170,9 @@ export default {
       shortName.push({
         name: item.description,
         url: item.fileUrl
+      })
+      date.push({
+        name: item.date
       })
     })
     data2.forEach((item) => {
@@ -192,6 +190,7 @@ export default {
     this.aptName = this.maps[0].name
     apts.push(JSON.stringify(aptName))
     apts.push(JSON.stringify(shortName))
+    apts.push(JSON.stringify(date))
     this.apts = JSON.stringify(apts)
     this.autoPlay()
   },
@@ -340,7 +339,7 @@ export default {
     },
     goTo (item) {
       if (item.url) {
-        open(location.origin + item.url)
+        open(item.url)
       } else {
         this.$router.push(`/detail?name=${item.name}`)
       }
@@ -352,10 +351,5 @@ export default {
 <style scoped lang="stylus">
   @import "Overview.styl"
   .background
-    background #eee
-    width 100%
-    height 100%
-    ._title
-      font-size $font-size-medium
-      padding 5px 10px
+    background $color-background-d
 </style>

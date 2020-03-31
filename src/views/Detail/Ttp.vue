@@ -12,9 +12,9 @@
 
 <script>
 import tab from '../../components/common/tab'
-import technology from '../../components/Map/Ttp/technology'
-import FloatChart from '../../components/Map/Ttp/flow-chart'
-import process from '../../components/Map/Ttp/process'
+import technology from '../../components/Detail/Ttp/technology'
+import FloatChart from '../../components/Detail/Ttp/flow-chart'
+import process from '../../components/Detail/Ttp/process'
 import { getDefaultTtp } from '../../api/detail'
 
 export default {

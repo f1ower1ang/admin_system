@@ -4,15 +4,15 @@ import path from '../assets/js/path'
 export function getApts (page, limit) {
   return axios.post(path.overview.apt, {
     page,
-    limit,
-    isIndex: true
+    limit
   }).then(res => Promise.resolve(res.data))
 }
 
-export function getMaps (page, limit) {
+export function getMaps (page, limit, isInIndex = false) {
   return axios.post(path.overview.map, {
     page,
-    limit
+    limit,
+    isInIndex
   }).then(res => Promise.resolve(res.data))
 }
 

@@ -10,3 +10,7 @@ export function getCards (limit, page, initiator) {
 export function getCategory () {
   return axios.post(path.home.category).then(res => Promise.resolve(res.data))
 }
+
+export function getCountry (data) {
+  return axios.post(path.home.country, data).then(res => Promise.resolve(res.data))
+}

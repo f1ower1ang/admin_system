@@ -46,7 +46,6 @@ export default {
       display block
       transition all .2s
       flex 1
-      color #fff
       &:before
         top 50%
         transform translateY(-50%)
@@ -55,7 +54,7 @@ export default {
         width: .8em;
         height: .8em;
         content: '\a0'
-        border 1px solid #ccc
+        border 1px solid $color-text
         line-height: .8;
         transition all .2s
     input:checked+label

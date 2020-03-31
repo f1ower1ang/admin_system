@@ -5,6 +5,11 @@ Mock.mock(path.user.login, 'post', ({ body }) => {
   const user = JSON.parse(body)
   if (user.userName === 'root' && user.password === 'root') {
     return require('./json/login')
+  } else {
+    return {
+      code: 500214,
+      msg: '账号或密码错误'
+    }
   }
 })
 
@@ -15,6 +20,7 @@ Mock.mock(path.user.logout, 'get', () => {
 })
 
 Mock.mock(path.home.aptList, 'post', ({ body }) => {
+  console.log(body)
   const { limit, page } = JSON.parse(body)
 
   const data = require('./json/apts_findAll')
@@ -35,11 +41,34 @@ Mock.mock(path.home.aptList, 'post', ({ body }) => {
 
 Mock.mock(path.home.category, 'post', require('./json/apts_getAptsInitiators'))
 
-Mock.mock(RegExp(path.detail.overview + '.*'), 'post', require('./json/apts_findOneByName'))
+Mock.mock(path.home.country, 'post', ({ body }) => {
+  console.log(body)
+  const { page, limit } = JSON.parse(body)
+  const res = require('./json/apts_getCountrys')
+  let data = []
+  if (page && limit) {
+    data = res.data.slice((page - 1) * limit, page * limit)
+  } else {
+    data = res.data
+  }
+  return {
+    data,
+    count: res.count
+  }
+})
 
-Mock.mock(path.detail.charts, 'post', require('./json/report_findAll'))
+Mock.mock(RegExp(path.detail.overview + '.*'), 'post', (req) => {
+  console.log(req)
+  return require('./json/apts_findOneByName')
+})
+
+Mock.mock(path.detail.charts, 'post', ({ body }) => {
+  console.log(body)
+  return require('./json/report_findAll')
+})
 
 Mock.mock(path.detail.ttp.default, 'post', ({ body }) => {
+  console.log(body)
   body = JSON.parse(body)
   const years = []
   const ret = []
@@ -52,7 +81,14 @@ Mock.mock(path.detail.ttp.default, 'post', ({ body }) => {
       years.push(i)
     }
   }
-  const { data } = require('./json/getChartsByAPT(1)')
+  let data = []
+  if (body.terminalType === '移动') {
+    let data1 = require('./json/procedures_getChartsByAPT1').data
+    let data2 = require('./json/procedures_getChartsByAPT2').data
+    data.push(...data1, ...data2)
+  } else {
+    data = require('./json/procedures_getChartsByAPT').data
+  }
   if (start) {
     data.forEach((item) => {
       let children = item.children.filter((child) => {
@@ -68,13 +104,23 @@ Mock.mock(path.detail.ttp.default, 'post', ({ body }) => {
       code: 0
     }
   } else {
-    return require('./json/getChartsByAPT(1)')
+    return {
+      data
+    }
   }
 })
 
-Mock.mock(path.detail.ttp.strategy, 'post', require('./json/tactics_findAll'))
+Mock.mock(path.detail.ttp.strategy, 'post', ({ body }) => {
+  console.log(body)
+  return require('./json/tactics_findAll')
+})
 
 Mock.mock(path.detail.ioc.default, 'post', require('./json/trees_getTrees'))
+
+Mock.mock(path.detail.ioc.hash, 'post', (req) => {
+  console.log(req)
+  return require('./json/trees_getTreesBySource')
+})
 
 Mock.mock(RegExp(path.detail.ioc.email + '.*'), 'post', require('./json/emails_getInfosFromEmail'))
 
@@ -88,14 +134,39 @@ Mock.mock(RegExp(path.detail.ioc.sample + '.*'), 'post', require('./json/samples
 
 Mock.mock(RegExp(path.detail.ioc.url + '.*'), 'post', require('./json/urls_getInfosFromUrl'))
 
+Mock.mock(RegExp(path.detail.inspect + '.*'), 'get', require('./json/report_findOneByHash'))
+
 Mock.mock(path.search.report, 'post', ({ body }) => {
   console.log(body)
   return require('./json/report_search')
 })
 
-Mock.mock(path.search.ttpSelector, 'get', require('./json/techniques_getTechTable'))
+Mock.mock(path.search.ttpSelector, 'post', ({ body }) => {
+  console.log(body)
+  body = JSON.parse(body)
+  if (body.terminalType === 'PC') { return require('./json/techniques_getTechTable') } else if (body.terminalType === '移动设备') { return require('./json/techniques_getTechTable1') } else if (body.terminalType === '移动网络') { return require('./json/techniques_getTechTable2') }
+})
 
-Mock.mock(path.search.ioc, 'post', require('./json/ioc_search'))
+Mock.mock(path.search.ioc, 'post', (req) => {
+  console.log(req)
+  return require('./json/ioc__search')
+})
+
+Mock.mock(path.search.iocRecord, 'post', require('./json/urnage.IocSearchRecord_findAll'))
+Mock.mock(path.search.searchRecordEdit, 'post', require('./json/IocSearchRecord_editOne'))
+Mock.mock(path.search.iocExpandDelete, 'post', require('./json/IocExpandRecord_delOne'))
+Mock.mock(path.search.iocExpand, 'post', require('./json/urnage.com_iocExpandRecord_findAll'))
+Mock.mock(path.search.searchID, 'post', require('./json/urnage.com_iocSearchRecord_findOneByEntity'))
+Mock.mock(path.search.Back, 'post', require('./json/step3_ioc_search(1)'))
+Mock.mock(path.search.iocRelationTag, 'post', require('./json/step3_ioc_search(1)'))
+Mock.mock(path.search.EditTag, 'post', require('./json/urnage.com_iocSearchRecord_findOneByEntity'))
+Mock.mock(path.search.DeleteTag, 'post', require('./json/step3_ioc_search(1)'))
+Mock.mock(path.search.TagId, 'post', require('./json/step3_ioc_search(1)'))
+
+Mock.mock(path.search.ttp, 'post', (req) => {
+  console.log(req)
+  return require('./json/apts_search')
+})
 
 Mock.mock(path.overview.apt, 'post', require('./json/report_findAll'))
 
@@ -237,3 +308,18 @@ Mock.mock(path.overview.sample, 'post', ({ body }) => {
 })
 
 Mock.mock(path.reportList.default, 'post', require('./json/report_findAll'))
+
+Mock.mock(path.threadInfo.rank, 'post', ({ body }) => {
+  console.log(body)
+  return require('./json/report_countRankBySource')
+})
+
+Mock.mock(path.threadInfo.counts, 'post', ({ body }) => {
+  console.log(body)
+  return require('./json/report_countRankByCountry')
+})
+
+Mock.mock(path.threadInfo.apt, 'post', ({ body }) => {
+  console.log(body)
+  return require('./json/report_countRankByAPT')
+})

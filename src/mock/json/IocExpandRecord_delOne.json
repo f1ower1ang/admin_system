@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "searchId": 10,
+      "name": "185.158.15.115",
+      "value": "185.158.15.115",
+      "date": "2020-02-21 19:44:17",
+      "startDate": "",
+      "endDate": "",
+      "userName": "root",
+      "page": 1,
+      "limit": 10,
+      "type": "domain",
+      "rollback": 0,
+      "notFound": 0
+    }
+  ],
+  "code": 0,
+  "msg": "SUCCESS",
+  "count": 1
+}

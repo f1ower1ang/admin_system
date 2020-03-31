@@ -11,6 +11,7 @@
     background
     @current-change="changeData"
     :current-page="page"
+    :hide-on-single-page="true"
   >
   </el-pagination>
 </div>

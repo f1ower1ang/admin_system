@@ -15,7 +15,6 @@
 
 <script>
 import { searchTtp } from '../../api/search'
-import ResultCard from '../../components/Search/result-card'
 import TtpSelector from './TtpSelector'
 
 export default {
@@ -65,7 +64,14 @@ export default {
               imgUrl: '',
               logo: item.initiatorFlag.split(';'),
               name: item.name,
-              description: item.summary
+              description: item.summary,
+              query: [{
+                key: 'APT别名',
+                value: item.synonym
+              }, {
+                key: '过程细节',
+                value: item.procedureName
+              }]
             }
           }))
         })
@@ -78,7 +84,11 @@ export default {
               imgUrl: '',
               logo: item.initiatorFlag.split(';'),
               name: item.name,
-              description: item.summary
+              description: item.summary,
+              query: [{
+                key: '命中',
+                value: item.technique
+              }]
             }
           }))
         })
@@ -88,6 +98,7 @@ export default {
       this.total = 0
       this.result = []
       this.page = 1
+      this.getTtp()
     }
   },
   watch: {

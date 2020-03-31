@@ -1,64 +1,38 @@
 <template>
-  <div class="detail-wrapper">
-    <tab :tabs="tabs" @handleTab="handleClick" :idx="currentIndex"></tab>
-    <div class="content">
-      <world-map v-show="current === 'detail'" :country="country"></world-map>
-      <chart v-show="current === 'detail'"></chart>
-      <div v-show="current === 'detail'" class="statement">
-        <div class="text" v-for="(item, index) in state" :key="index">
-          <p class="left">
-            {{ item.title }}:
-          </p>
-          <p class="right">
-            {{ item.content }}
-          </p>
-        </div>
+  <div class="map-wrapper">
+    <world-map :country="country"></world-map>
+    <chart></chart>
+    <div class="statement">
+      <div class="text" v-for="(item, index) in state" :key="index">
+        <p class="left">
+          {{ item.title }}
+        </p>
+        <p class="right">
+          {{ item.content }}
+        </p>
       </div>
-      <router-view></router-view>
-      <keep-alive>
-      </keep-alive>
     </div>
   </div>
 </template>
 
 <script>
-import WorldMap from '../../components/Map/map/WordMap'
-import tab from '../../components/common/tab'
-import chart from '../../components/Map/map/chart'
+import WorldMap from '../../components/Detail/map/WordMap'
+import chart from '../../components/Detail/map/chart'
 import { getOverview } from '../../api/detail'
 
 export default {
-  name: 'Map',
+  name: 'DetailMap',
   components: {
-    tab,
     WorldMap,
     chart
   },
   data () {
     return {
-      tabs: [
-        {
-          label: '基本情况',
-          name: 'detail',
-          router: `/detail?name=${this.$route.query.name}`
-        }, {
-          label: '动态行为特征',
-          name: 'ttp',
-          router: `/detail/ttp?name=${this.$route.query.name}`
-        }, {
-          label: '静态资源特征',
-          name: 'ioc',
-          router: `/detail/ioc?name=${this.$route.query.name}`
-        }],
-      current: this.$route.name,
-      currentIndex: 0,
       state: [],
       country: {}
     }
   },
   created () {
-    this.current = this.$route.name
-    this.getIndex()
     getOverview(this.$route.query.name).then((res) => {
       this.country = {
         0: res.data.initiatorEnName.trim().length > 0 ? res.data.initiatorEnName.split(';').map((val) => {
@@ -102,46 +76,37 @@ export default {
           content: res.data.summary
         }]
     })
-  },
-  methods: {
-    handleClick (name) {
-      this.current = name
-    },
-    getIndex () {
-      this.currentIndex = this.tabs.findIndex((item) => item.name === this.current)
-    }
   }
 }
 </script>
 
 <style scoped lang="stylus">
-  .detail-wrapper
-    width 100%
+  .map-wrapper
+    width calc(100% - 40px)
     height 100%
     position relative
+    margin 20px 20px 0 20px
 
-    .content
-      width 100%
+    .statement
       position absolute
-      top 55px
-      bottom 0
+      top calc(100% + 550px)
+      padding-bottom 20px
 
-      .statement
-        position absolute
-        top calc(200% - 140px)
-        padding-bottom 20px
+      .text
+        margin-top 5px
+        display flex
 
-        .text
-          margin-top 5px
+        p
+          font-size $font-size-medium
+          line-height 30px
+          display inline-block
 
-          p
-            line-height 30px
-            display inline-block
+        .left
+          width 150px
+          color $color-text-l
+          flex-shrink 0
 
-          .left
-            width 150px
-
-      .opacity
-        opacity 1
-        z-index 10
+    .opacity
+      opacity 1
+      z-index 10
 </style>

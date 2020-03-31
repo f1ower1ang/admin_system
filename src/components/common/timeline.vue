@@ -1,14 +1,8 @@
 <template>
 <div class="timeline">
-  <div class="item" v-for="(item, index) in items" :key="index">
-    <div class="head">
-      <div class="line"></div>
-      <div class="icon" :class="{ active: current === item}" @click.stop="handleDot(item)"></div>
-    </div>
-    <div class="main">
-      {{ item }}
-    </div>
-  </div>
+  <p class="text">起始时间</p>
+  <el-slider class="custom-slider" v-model="timeRange" range show-stops :min="min" :max="max" :marks="marks" :show-tooltip="false" @change="change" />
+  <p class="text" style="margin-right: 0">结束时间</p>
 </div>
 </template>
 
@@ -16,37 +10,45 @@
 export default {
   name: 'timeline',
   props: {
-    items: {
+    years: {
       type: Array,
-      default: null
-    },
-    active: {
-      type: Number,
-      default: 0
+      default() {
+        return []
+      }
     }
   },
   data() {
     return {
-      current: this.items && this.items.length > 0 ? this.items[this.active] : ''
+      timeRange: [],
+      min: 0,
+      max: 0,
+      marks: {}
+    }
+  },
+  created () {
+    const year = new Date().getFullYear()
+    if (this.years.length > 0) {
+      this.timeRange = [this.years[0], this.years[this.years.length - 1]]
+      this.min = this.timeRange[0]
+      this.max = this.timeRange[1]
+    }
+    for (let i = year - 20; i <= year; i++) {
+      this.marks[i] = i.toString()
     }
   },
   watch: {
-    items: {
+    years: {
       handler() {
-        if (this.items.length > 0) {
-          this.current = this.items[0]
-        }
+        this.timeRange = [this.years[0], this.years[this.years.length - 1]]
+        this.min = this.timeRange[0]
+        this.max = this.timeRange[1]
       },
       deep: true
-    },
-    active() {
-      this.current = this.items && this.items.length > 0 ? this.items[this.active] : ''
     }
   },
   methods: {
-    handleDot(item) {
-      this.current = item
-      this.$emit('select', item)
+    change() {
+      this.$emit('select', this.timeRange)
     }
   }
 }
@@ -57,41 +59,12 @@ export default {
   white-space nowrap
   display flex
   font-size 12px
-  .item
+  width 100%
+  align-items flex-end
+  .text
+    font-size $font-size-medium
+    margin-right 20px
+  .el-slider
     flex 1
-    position relative
-    &:last-child
-      flex-grow 0
-      flex-shrink 0
-      .line
-        display none
-    .head
-      position relative
-      width 100%
-      border-color #C0C4CC
-      color #C0C4CC
-      .line
-        height 2px
-        background-color #C0C4CC
-        border-color inherit
-        position absolute
-        left 0
-        right 0
-        top 50%
-        transform translateY(-50%)
-      .icon
-        border-radius 50%
-        position relative
-        border 2px solid
-        border-color inherit
-        z-index 1
-        background #fff
-        width 12px
-        height 12px
-        transition all .2s
-        &.active
-          background #C0C4CC
-    .main
-      text-align left
-      color #C0C4CC
+    margin-right: 20px;
 </style>

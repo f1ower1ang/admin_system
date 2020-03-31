@@ -1,0 +1,52 @@
+@import "../../assets/stylus/variable.styl"
+.ThreatIntelligence
+  width 100%
+  height 100%
+  overflow hidden
+  background $color-background-d
+  .top
+    width 100%
+    height 50%
+    border-bottom  2px solid $color-border
+    .el-col
+      height 100%
+      &:first-child
+        border-right 1px solid $color-border
+        .wrapper
+          padding 5px 0
+          height calc(100% - 50px)
+  .bottom
+    border-top 2px solid $color-border
+    width 100%
+    height 50%
+    box-sizing border-box
+    .el-col
+      height 100%
+      &:first-child
+        border-right 1px solid $color-border
+
+  .background
+    background $color-background-d
+    ._title
+      border-bottom 1px solid $color-border
+      height 35px
+      align-items center
+      justify-content space-between
+      padding 0 10px
+      color #eee
+      display flex
+      span
+        font-weight bold
+        font-size $font-size-medium-x
+      a
+        font-size $font-size-small
+        color #016FFF
+    .wrapper
+      width 100%
+      height calc(100% - 90px)
+    .timeWrapper
+      padding 0 20px
+      height 50px
+      color #fff
+      font-size $font-size-small
+      margin-bottom: 5px;

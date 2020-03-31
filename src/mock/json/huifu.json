@@ -1,0 +1,29 @@
+{"data":
+  {"data":[
+    {
+      "name":"(1)dieordaunt.com",
+      "draggable":true,
+      "symbolSize":30,
+      "flag":"4",
+      "rightClickMenuList":[
+        {
+          "menuName":"扩展关联线索",
+          "menuType":"2",
+          "menuURL":"1",
+          "menuValue":"dieordaunt.com"}],
+      "value":"dieordaunt.com",
+      "url":"",
+      "detail":null,
+      "itemStyle":{"color":"#169bd5"}}],
+    "links":[
+      {
+        "target":"(1)dieordaunt.com",
+        "source":"185.158.15.115",
+        "tag":"",
+        "tagId":null
+      }]
+  },
+  "code":0,
+  "msg":"SUCCESS",
+  "count":1
+}

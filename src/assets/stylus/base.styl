@@ -1,4 +1,5 @@
 @import "variable.styl"
+@import "mixin.styl"
 
 body, html
   line-height: 1.5
@@ -14,92 +15,24 @@ body, html
 
 
   ._col-0
-    background #000033
+    background #fff
 
   ._col-1
-    background #000066
+    background $color-theme-l
 
-  ._col-2
-    background #663300
+  .custom-select
+    .el-input__inner
+      border none
+      line-height 26px
+      height 26px
+      color #eee
+      background inherit
 
-  ._col-3
-    background #003300
-
-  ._col-4
-    background #663366
-
-  ._col-5
-    background #003366
-
-  ._col-6
-    background #003399
-
-  ._col-7
-    background #006600
-
-  ._col-8
-    background #330000
-
-  ._col-9
-    background #006666
-
-  ._col-10
-    background #006699
-
-  ._col-11
-    background #333333
-
-  ._col-12
-    background #333366
-
-  .el-table tbody tr:hover > td
-    background-color: #555 !important
-    color #fff
-
-  .el-table__empty-block
-    display none
-
-  .el-radio-button__inner
-    border none
-    padding: 6px 12px;
-    font-size: 12px;
-    border-radius: 0
-
-  .el-radio-button:first-child .el-radio-button__inner
-    border-radius: 0
-    border none
-
-  .el-radio-button
-    border-radius 0
-    border 1px solid #DCDFE6
-
-    &.is-active
-      border-color #409EFF
-      border-radius 0
-      background-color: #409EFF
-
-  .el-select .el-input__inner
-    border none
-    line-height 26px
-    height 26px
-    text-align center
-
-  .el-input__inner
-    background inherit
-
-  .el-select-dropdown__item
-    text-align center
-    padding-right: 35px;
+    .el-select-dropdown__item
+      padding-right: 35px;
 
   .el-input__icon
     line-height 100%
-
-  .el-popper[x-placement^=bottom]
-    margin-top 3px
-
-  .el-popper[x-placement^=bottom] .popper__arrow
-    right 50px
-    margin 0 auto
 
   .el-tooltip__popper.is-dark
     background rgba(50, 50, 50, .7)
@@ -112,35 +45,76 @@ body, html
     .popper__arrow, .popper__arrow::after
       border-bottom-color: rgba(50, 50, 50, .7)
 
+  .custom-table
+    td
+      border-bottom 3px solid $color-background
+
+    tbody tr:hover > td
+      background-color: #555 !important
+      color #fff !important
+
+    .el-table__empty-block
+      display none
+    .el-table__header
+      .cell
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+
+  .custom-tabs
+    .el-tabs__content
+      display none
+
+  .custom-slider
+    .el-slider__runway
+      margin 16px 0
+
+    .el-slider__button-wrapper
+      top -12px
+      height: 20px;
+
+      .el-slider__button
+        width: 10px;
+        height: 20px;
+        background: $color-theme
+        border none
+        border-bottom none
+        border-radius 0
+        position relative
+
+        &:after
+          position absolute
+          content ''
+          width 0
+          height 0
+          top 20px
+          left 50%
+          transform translateX(-50%)
+          border-width 5px
+          border-style: solid;
+          border-color: $color-theme transparent transparent transparent;
+
+.no-radius
+  .el-input__inner, .el-button--medium, .el-button
+    border-radius 0
+
 .row-0
-  background rgb(143, 205, 162)
+  background #fff
 
 .row-1
-  background rgb(136, 203, 175)
+  background $color-theme-l
 
-.row-2
-  background rgb(82, 179, 147)
+.is-opened
+  .el-menu-item-group__title
+    display none
+  .el-menu
+    background #1B1C38!important
+    .el-menu-item
+      background transparent!important
+      color #5A5A86
+.search-box
+  .el-input__inner
+    border 1px solid #409EFF
 
-.row-3
-  background rgb(74, 176, 164)
-
-.row-4
-  background rgb(61, 171, 191)
-
-.row-5
-  background rgb(49, 166, 215)
-
-.row-6
-  background rgb(37, 162, 240)
-
-.row-7
-  background rgb(44, 164, 255)
-
-.row-8
-  background rgb(34, 161, 247)
-
-.row-9
-  background rgb(32, 160, 249)
-
-.row-10
-  background rgb(40, 150, 240)
+.no-wrap
+  no-wrap()
