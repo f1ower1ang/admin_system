@@ -122,6 +122,11 @@ export default {
         this.$router.push(`/detail?name=${item.name}`)
       }
     },
+    goToCountry(item, type) {
+      // this.$router.push(`/${type}?country=${item}`)
+      let routerMyCard = this.$router.resolve({ path: `/${type}?country=${item}` })
+      window.open(routerMyCard.href, '_blank')
+    },
     // 得到 报告排名 数据
     async getCompanyReport (timeRange) {
       const { data } = await getCompanyRank(10, 1, timeRange)
@@ -211,8 +216,13 @@ export default {
           }
         ]
       }
-
       this.cmpChart && this.cmpChart.setOption(option)
+      let _this = this
+      this.cmpChart.on('click', function (params) {
+        if (params.componentType === 'series') {
+          _this.goToCountry(params.name, 'reportList')
+        }
+      })
     },
     // 根据国家统计报告数的图表
     async getCountryReport(timeRange) {
@@ -328,17 +338,21 @@ export default {
         }]
       }
       this.reportChart && this.reportChart.setOption(option)
+      let _this = this
+      this.reportChart.on('click', function (params) {
+        if (params.componentType === 'series') {
+          _this.goToCountry(params.name, 'reportList')
+        }
+      })
     },
     async getAptRank(timeRange) {
       const { data } = await getAptRank(10, 1, timeRange)
-
       const name = []
       const value = []
       const colorList = [
         '#016fff', '#06c3d8', '#57a9e2', '#7347c4', '#7364e0',
         '#e9c5c1', '#dd767a', '#e16255', '#0fb5fd', '#015b7d'
       ]
-
       data.forEach((item, i) => {
         name.push(data[i].apt)
         value.push(data[i].count)
@@ -443,6 +457,12 @@ export default {
         }]
       }
       this.aptChart && this.aptChart.setOption(option)
+      let _this = this
+      this.aptChart.on('click', function (params) {
+        if (params.componentType === 'series') {
+          _this.goToCountry(params.name, 'reportList')
+        }
+      })
     }
   }
 }

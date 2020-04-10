@@ -4,10 +4,10 @@
       <search-box :default="keywords" @search="search" :placeholder="placeholder"/>
     </div>
     <div class="result">
-      <result :keywords="keywords" @search="search"/>
+      <result :keywords="keywords"/>
     </div>
   </div>
-</template>
+</template> c
 
 <script>
 import result from '../../components/Search/report'

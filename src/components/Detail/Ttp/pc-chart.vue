@@ -39,7 +39,7 @@
       </div>
       <div class="d2" id="d2_3">
         <div class="bg">
-          <div class="div" ref="div11" style="background: #ADB7C5">
+          <div class="div" ref="div11" style="background: #066">
             <el-tooltip effect="dark" placement="bottom">
               <div slot="content" class="detail" style>
                 {{ strategies[0][11].detail }}

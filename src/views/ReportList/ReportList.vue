@@ -143,7 +143,6 @@ export default {
   },
   mounted () {
     this.count = Math.floor((this.$refs.list.offsetWidth - 60 - 96) / 100)
-    console.log(this.$refs.list.offsetWidth, this.count)
     const year = new Date().getFullYear()
     this.year = year
     for (let i = year - 9; i <= year; i++) {
@@ -190,9 +189,14 @@ export default {
   },
   activated () {
     let params = JSON.parse(this.params)
-    if (this.$route.query.country) {
-      params[0] = this.$route.query.country
+    const { country, apt } = this.$route.query
+    if (country) {
+      params[0] = country
       this.country = params[0]
+      this.params = JSON.stringify(params)
+    } else if (apt) {
+      params[2] = apt
+      this.apt = params[2]
       this.params = JSON.stringify(params)
     } else {
       this.getReport()

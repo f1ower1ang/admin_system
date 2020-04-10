@@ -142,6 +142,7 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.pwdForm.id = parseInt(sessionStorage.id)
+          this.pwdForm.userName = sessionStorage.user
           editUser(this.pwdForm).then((res) => {
             if (res.code === 0) {
               sessionStorage.token = ''

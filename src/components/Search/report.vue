@@ -1,7 +1,7 @@
 <template>
 <div class="report">
   <div class="list" v-infinite-scroll="load">
-    <result-card v-for="(item, index) in result" border :item="item" :key="index" @search="search" />
+    <result-card v-for="(item, index) in result" border :item="item" :key="index" />
   </div>
 </div>
 </template>
@@ -78,9 +78,6 @@ export default {
     },
     goTo(item) {
       open(location.origin + item.url)
-    },
-    search(k) {
-      this.$emit('search', k)
     }
   }
 }

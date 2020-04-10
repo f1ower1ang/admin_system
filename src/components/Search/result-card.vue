@@ -8,7 +8,7 @@
       <div class="top">
         <div class="text">
           <h2 class="title" v-html="item.title"/>
-          <span class="tag apt" v-if="item.apt" @click.stop="searchReport(item.apt)">{{ item.apt }}</span>
+          <span class="tag apt" v-if="item.apt" @click.stop="goTo(item.apt, '/reportList?apt=')">{{ item.apt }}</span>
           <flag class="tag" :item="item.item" @click.native.stop="goTo(item.item.name, '/reportList?country=')" v-if="item.item"/>
         </div>
         <div class="btn" v-if="item.hash">
@@ -63,9 +63,6 @@ export default {
         path: path + query
       })
       open(routerHref.href)
-    },
-    searchReport(keywords) {
-      this.$emit('search', keywords)
     }
   }
 }
