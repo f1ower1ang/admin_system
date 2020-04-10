@@ -19,6 +19,35 @@ Mock.mock(path.user.logout, 'get', () => {
   }
 })
 
+Mock.mock(path.user.editUser, 'post', ({ body }) => {
+  console.log(body)
+  return {
+    code: 0
+  }
+})
+
+Mock.mock(path.user.current, 'get', () => {
+  return {
+    code: 0,
+    data: {
+      'id': 1,
+      'userName': 'root',
+      'password': 'uS8l/BA+qGZ08PcXWRH94g==',
+      'realName': '系统管理员',
+      'telephone': '15011111110',
+      'email': 'ss010@aa.com000',
+      'addTime': '2019-10-09 11:31:49',
+      'state': 1,
+      'roleId': 1,
+      'page': 1,
+      'limit': 10,
+      'startDate': '',
+      'endDate': '',
+      'rememberMe': ''
+    }
+  }
+})
+
 Mock.mock(path.home.aptList, 'post', ({ body }) => {
   console.log(body)
   const { limit, page } = JSON.parse(body)
@@ -82,7 +111,7 @@ Mock.mock(path.detail.ttp.default, 'post', ({ body }) => {
     }
   }
   let data = []
-  if (body.terminalType === '移动') {
+  if (body.terminalType.indexOf('移动') > -1) {
     let data1 = require('./json/procedures_getChartsByAPT1').data
     let data2 = require('./json/procedures_getChartsByAPT2').data
     data.push(...data1, ...data2)
@@ -173,16 +202,16 @@ Mock.mock(path.overview.apt, 'post', require('./json/report_findAll'))
 Mock.mock(path.overview.statistics, 'post', require('./json/getStatistics'))
 
 Mock.mock(path.overview.ip, 'post', ({ body }) => {
-  const { apt } = JSON.parse(body)
+  // const { apt } = JSON.parse(body)
   const { data } = require('./json/ips_findAll')
-  const ret = []
-  data.forEach((item) => {
-    if (item.apt === apt) {
-      ret.push(item)
-    }
-  })
+  // const ret = []
+  // data.forEach((item) => {
+  //   if (item.apt === apt) {
+  //     ret.push(item)
+  //   }
+  // })
   return {
-    data: ret,
+    data: data,
     code: 0
   }
 })
@@ -218,31 +247,30 @@ Mock.mock(path.overview.fileName, 'post', ({ body }) => {
 })
 
 Mock.mock(path.overview.domain, 'post', ({ body }) => {
-  const { apt } = JSON.parse(body)
+  // const { apt } = JSON.parse(body)
   const { data } = require('./json/domains_findAll')
-  const ret = []
-  data.forEach((item) => {
-    if (item.apt === apt) {
-      ret.push(item)
-    }
-  })
+  // const ret = []
+  // data.forEach((item) => {
+  //   if (item.apt === apt) {
+  //     ret.push(item)
+  //   }
+  // })
   return {
-    data: ret,
+    data,
     code: 0
   }
 })
 
 Mock.mock(path.overview.email, 'post', ({ body }) => {
-  const { apt } = JSON.parse(body)
   const { data } = require('./json/emails_findAll')
-  const ret = []
-  data.forEach((item) => {
-    if (item.apt === apt) {
-      ret.push(item)
-    }
-  })
+  // const ret = []
+  // data.forEach((item) => {
+  //   if (item.apt === apt) {
+  //     ret.push(item)
+  //   }
+  // })
   return {
-    data: ret,
+    data,
     code: 0
   }
 })

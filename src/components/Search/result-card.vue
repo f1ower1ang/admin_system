@@ -8,12 +8,12 @@
       <div class="top">
         <div class="text">
           <h2 class="title" v-html="item.title"/>
-          <span class="tag apt" v-if="item.apt">{{ item.apt }}</span>
-          <flag class="tag" :item="item.item" v-if="item.item"/>
+          <span class="tag apt" v-if="item.apt" @click.stop="searchReport(item.apt)">{{ item.apt }}</span>
+          <flag class="tag" :item="item.item" @click.native.stop="goTo(item.item.name, '/reportList?country=')" v-if="item.item"/>
         </div>
         <div class="btn" v-if="item.hash">
-          <el-button type="text" @click.native.stop="goTo(item, '/threatIntelligence/ttp?hash=')">查看TTP</el-button>
-          <el-button type="text" @click.native.stop="goTo(item, '/threatIntelligence/ioc?hash=')">查看IOC资源</el-button>
+          <el-button type="text" @click.native.stop="goTo(item.hash, '/threatIntelligence/ttp?hash=')">查看TTP</el-button>
+          <el-button type="text" @click.native.stop="goTo(item.hash, '/threatIntelligence/ioc?hash=')">查看IOC资源</el-button>
         </div>
       </div>
       <div class="middle">
@@ -58,11 +58,14 @@ export default {
         this.$router.push(`/detail?name=${item.apt}`)
       }
     },
-    goTo(item, path) {
+    goTo(query, path) {
       let routerHref = this.$router.resolve({
-        path: path + item.hash
+        path: path + query
       })
       open(routerHref.href)
+    },
+    searchReport(keywords) {
+      this.$emit('search', keywords)
     }
   }
 }

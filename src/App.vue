@@ -6,13 +6,13 @@
         <div class="user-wrapper">
           <el-avatar
             shape="circle" :size="40"
-            src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
+            src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"/>
           <el-dropdown style="padding-left: 15px" trigger="click" @command="handleCommand">
               <span style="color: #eee">
-                {{ user }}<i class="el-icon-arrow-down el-icon--right" />
+                {{ user }}<i class="el-icon-arrow-down el-icon--right"/>
               </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>个人信息</el-dropdown-item>
+              <el-dropdown-item command="changePwd">修改密码</el-dropdown-item>
               <el-dropdown-item command="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -20,23 +20,45 @@
       </el-header>
       <el-container>
         <div class="aside" :class="collapse ? 'shrink': 'expand'">
-          <sidebar :is-collapse="collapse" />
+          <sidebar :is-collapse="collapse"/>
           <div @click="toggle" class="btn">
             <i class="el-icon-caret-left" :class="{rotate: collapse}"></i>
           </div>
         </div>
         <el-main :class="collapse ? 'shrink': 'expand'">
           <keep-alive :exclude="['layout', 'InspectIoc', 'InspectTtp', 'TtpResult', 'ReportResult', 'IocResult']">
-            <router-view />
+            <router-view/>
           </keep-alive>
         </el-main>
       </el-container>
     </el-container>
+    <el-dialog
+      title="修改密码"
+      width="400px"
+      :visible.sync="dialogVisible"
+      @close="cancel"
+    >
+      <el-form :model="pwdForm" status-icon :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
+        <el-form-item label="当前密码" prop="oldPwd">
+          <el-input type="password" v-model="pwdForm.oldPwd" autocomplete="off" size="small" style="width: 95%"></el-input>
+        </el-form-item>
+        <el-form-item label="新密码" prop="password">
+          <el-input type="password" v-model="pwdForm.password" autocomplete="off" size="small" style="width:95%"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="confirmPwd" style="margin-bottom: 0;">
+          <el-input type="password" v-model="pwdForm.confirmPwd" autocomplete="off" size="small" style="width: 95%"></el-input>
+        </el-form-item>
+      </el-form>
+      <p slot="footer" class="dialog-footer">
+        <el-button @click="cancel" size="mini">取 消</el-button>
+        <el-button type="primary" @click="changePwd" size="mini">确 定</el-button>
+      </p>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { logout } from './api/user'
+import { logout, editUser } from './api/user'
 import sidebar from './components/common/sidebar'
 
 export default {
@@ -44,33 +66,95 @@ export default {
   components: {
     sidebar
   },
-  data () {
+  data() {
+    const validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入新密码'))
+      } else {
+        if (this.pwdForm.confirmPwd !== '') {
+          this.$refs.ruleForm.validateField('confirmPwd')
+        }
+        callback()
+      }
+    }
+    const validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.pwdForm.password) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
+    const validateOld = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入当前密码'))
+      } else if (value !== sessionStorage.password) {
+        callback(new Error('当前密码不正确'))
+      } else {
+        callback()
+      }
+    }
     return {
       user: sessionStorage.user,
       collapse: false,
-      icon: 'el-icon-arrow-left'
+      icon: 'el-icon-arrow-left',
+      dialogVisible: false,
+      pwdForm: {
+        oldPwd: '',
+        password: '',
+        confirmPwd: ''
+      },
+      rules: {
+        oldPwd: { required: true, validator: validateOld, trigger: 'blur' },
+        password: { validator: validatePass, trigger: 'blur', required: true },
+        confirmPwd: { validator: validatePass2, trigger: 'blur', required: true }
+      }
     }
   },
   methods: {
-    handleCommand (e) {
-      if (e === 'logout') {
-        logout().then((res) => {
-          sessionStorage.token = ''
-          this.$router.push('/login')
-        })
+    handleCommand(e) {
+      switch (e) {
+        case 'logout':
+          logout().then((res) => {
+            sessionStorage.token = ''
+            this.$router.push('/login')
+          })
+          break
+        case 'changePwd':
+          this.dialogVisible = true
+          break
       }
     },
-    toggle () {
+    toggle() {
       this.collapse = !this.collapse
       if (this.collapse) {
         this.icon = 'el-icon-arrow-right'
       } else {
         this.icon = 'el-icon-arrow-left'
       }
+    },
+    cancel() {
+      this.dialogVisible = false
+      this.pwdForm = this.$options.data().pwdForm
+    },
+    changePwd() {
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          this.pwdForm.id = parseInt(sessionStorage.id)
+          editUser(this.pwdForm).then((res) => {
+            if (res.code === 0) {
+              sessionStorage.token = ''
+              this.$router.push('/login')
+            }
+          })
+          this.cancel()
+        }
+      })
     }
   },
   watch: {
-    $route (to, from) {
+    $route(to, from) {
       if (from.path === '/login') {
         this.user = sessionStorage.user
       }
@@ -114,6 +198,7 @@ export default {
     background $color-background-d
     border-right 8px solid $color-border
     transition all .4s
+
     .btn
       position absolute
       right -8px
@@ -124,8 +209,10 @@ export default {
       background linear-gradient($color-border, #242443 50%, $color-border)
       display flex
       align-items center
+
       i
         transition all .4s
+
       .rotate
         transform rotateY(180deg)
 
@@ -156,4 +243,9 @@ export default {
 
     &.is-circle
       padding 6px
+  .dialog-footer
+    &:after
+      display: table;
+      content: '';
+      clear: both;
 </style>

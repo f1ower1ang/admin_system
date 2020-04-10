@@ -69,10 +69,10 @@ export default {
 
 <style scoped lang="stylus">
   .flow-chart-wrapper
-    width 80%
+    width 90%
     position absolute
     top 10px
-    left 10%
+    left 5%
 
     .box
       display flex

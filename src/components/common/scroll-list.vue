@@ -6,7 +6,7 @@
           <div class="marquee_list" :class="getClass(index)" v-for="(li, index) in dataList" :key="index">
             <ul ref="list">
               <li v-for="(item, idx) in li" :key="idx" @click="select(item)">
-                <p>
+                <p @click="goTo(item)">
                   {{ item.name }}
                 </p>
               </li>
@@ -113,6 +113,16 @@ export default {
     },
     select(item) {
       this.$emit('select', item)
+    },
+    goTo(item) {
+      if (this.type === 'apt-detail') {
+        this.$router.push({
+          name: 'ioc-result',
+          params: {
+            keywords: item.name
+          }
+        })
+      }
     }
   }
 }
@@ -193,6 +203,8 @@ export default {
     overflow hidden
     width 100%
     height 100%
+    li
+      cursor pointer
 
     .col-1
       padding 10px 0

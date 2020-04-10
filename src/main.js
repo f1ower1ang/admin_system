@@ -43,4 +43,4 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-Vue.use(elTableInfiniteScroll);
+Vue.use(elTableInfiniteScroll)

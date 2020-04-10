@@ -4,7 +4,7 @@
       <search-box :default="keywords" @search="search" :placeholder="placeholder"/>
     </div>
     <div class="result">
-      <result :keywords="keywords"/>
+      <result :keywords="keywords" @search="search"/>
     </div>
   </div>
 </template>

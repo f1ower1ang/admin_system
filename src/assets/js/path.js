@@ -45,7 +45,8 @@ export default {
   user: {
     login: '/user/login',
     current: '/user/getCurrentUser',
-    logout: '/user/logout_json'
+    logout: '/user/logout_json',
+    editUser: '/user/editOne'
   },
   overview: {
     apt: '/report/findAll',

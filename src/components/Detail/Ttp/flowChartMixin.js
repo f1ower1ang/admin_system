@@ -31,10 +31,10 @@ export default {
   methods: {
     changeData () {
       let div = this.devices.length === 1 ? document.querySelectorAll('.PC .div') : document.querySelectorAll('.mobile .div')
-
+      console.log(this.wordArr)
       this.wordArr.forEach((item) => {
         for (let i = 0; i < div.length; i++) {
-          if (item === div[i].innerText.trim()) {
+          if (item.trim() === div[i].innerText.trim()) {
             div[i].style.opacity = '0.9'
           }
         }

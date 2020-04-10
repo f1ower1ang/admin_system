@@ -20,7 +20,7 @@
             <div class="border" ref="map" @mouseenter="clearPlay" @mouseleave="autoPlay">
               <p class="describe">地缘关系</p>
               <word-map :country="currentCountry" :pure="pure"></word-map>
-              <div class="tooltip" v-if="currentCountry" ref="tooltip">
+              <div class="tooltip" v-if="currentCountry" ref="tooltip" @click="goTo(currentCountry)">
                 <p>{{ currentCountry.name }}</p>
                 <img :src="currentCountry.flag" alt="">
               </div>

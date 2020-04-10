@@ -83,7 +83,7 @@ export default {
     .box
       display flex
       align-items center
-      width 85%
+      width 80%
       &.top
         .d2
           flex 2
@@ -176,7 +176,7 @@ export default {
     .bottom
       display flex
       .d2
-        width 17%
+        width 22%
         margin-right: 30px;
         &:last-child
           .div

@@ -24,3 +24,9 @@ export function getCurrentUser () {
     return Promise.resolve(res.data)
   })
 }
+
+export function editUser(data) {
+  return axios.post(path.user.editUser, data).then(res => {
+    return Promise.resolve(res.data)
+  })
+}

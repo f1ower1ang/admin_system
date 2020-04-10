@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { login } from '../../api/user'
+import { getCurrentUser, login } from '../../api/user'
 import { Message } from 'element-ui'
 
 export default {
@@ -53,6 +53,12 @@ export default {
                 sessionStorage.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NzIyMzU0NTUsImlhdCI6MTU3MjIzMTg1NSwidXNlcm5hbWUiOiJyb290In0.jlkhZrLwP6IGu_AKZOavJlXwYQnMD6gQwfpe8lXQ48w'
               }
               sessionStorage.user = this.loginForm.username
+              sessionStorage.password = this.loginForm.password
+              getCurrentUser().then((res) => {
+                if (res.code === 0) {
+                  sessionStorage.id = res.data.id
+                }
+              })
               this.$router.push('/home')
             } else {
               Message.error(res.msg)

@@ -1,7 +1,7 @@
 <template>
   <div class="report-list">
     <div class="search-wrapper">
-      <search-box @search="search"/>
+      <search-box :default="input" @search="search"/>
     </div>
     <el-collapse-transition>
       <div class="options" v-show="flag" ref="options">
@@ -67,8 +67,8 @@
     <div class="result-wrapper" ref="result">
       <h2 class="title">共找到<span>{{total}}</span>条结果</h2>
       <div class="result-list" v-infinite-scroll="load">
-        <result-card v-for="(item, index) in list" :item="item" :key="index" @select="goTo"
-                     locate="false"/>
+        <result-card v-for="(item, index) in list" :item="item" :key="index" @search="search"
+                     locate="false" />
       </div>
     </div>
   </div>
@@ -162,7 +162,7 @@ export default {
     })
   },
   created () {
-    getCompanyRank(1000, 1).then((res) => {
+    getCompanyRank(1000, 1, 'name asc').then((res) => {
       res.data.forEach((item) => {
         this.sources.push({
           name: item.source
@@ -170,7 +170,7 @@ export default {
       })
       this.curSources = this.sources.slice(0, this.count)
     })
-    getCountryCount(1000, 1).then((res) => {
+    getCountryCount(1000, 1, 'name asc').then((res) => {
       res.data.forEach((item) => {
         this.countries.push({
           name: item.country,
@@ -179,7 +179,7 @@ export default {
       })
       this.curCountries = this.countries.slice(0, this.count)
     })
-    getAptRank(1000, 1).then((res) => {
+    getAptRank(1000, 1, 'name asc').then((res) => {
       res.data.forEach((item) => {
         this.APTs.push({
           name: item.apt
