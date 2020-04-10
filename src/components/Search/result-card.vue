@@ -59,6 +59,10 @@ export default {
       }
     },
     goTo(query, path) {
+      if (path.indexOf(this.$route.path) > -1) {
+        this.$emit('search', path.split('?')[1], query)
+        return
+      }
       let routerHref = this.$router.resolve({
         path: path + query
       })

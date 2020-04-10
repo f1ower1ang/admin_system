@@ -67,7 +67,7 @@
     <div class="result-wrapper" ref="result">
       <h2 class="title">共找到<span>{{total}}</span>条结果</h2>
       <div class="result-list" v-infinite-scroll="load">
-        <result-card v-for="(item, index) in list" :item="item" :key="index" @search="search"
+        <result-card v-for="(item, index) in list" :item="item" :key="index" @search="filter"
                      locate="false" />
       </div>
     </div>
@@ -413,6 +413,18 @@ export default {
       this.type = {
         name, action
       }
+    },
+    filter(type, name) {
+      this.status = 'default'
+      let params = JSON.parse(this.params)
+      if (type.indexOf('country') > -1) {
+        params[0] = name
+        this.country = name
+      } else if (type.indexOf('apt') > -1) {
+        params[2] = name
+        this.apt = name
+      }
+      this.params = JSON.stringify(params)
     }
   }
 }
